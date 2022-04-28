@@ -5,6 +5,7 @@ import com.gzpr.testTask.services.CsvConverter;
 import com.gzpr.testTask.services.RestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +22,7 @@ public class TestTaskApplication implements CommandLineRunner {
 	private static final Logger LOG = LoggerFactory.getLogger(TestTaskApplication.class);
 
 	private final RestService restService;
+	@Autowired
 	private final CsvConverter csvConverter;
 
 	public TestTaskApplication(RestService restService, CsvConverter csvConverter) {

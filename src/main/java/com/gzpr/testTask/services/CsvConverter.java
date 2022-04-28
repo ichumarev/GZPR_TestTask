@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CsvConverter {
 
-    public static void CollectionToCsv(final Collection<ApiUser> users, File csvFile) throws IOException {
+    public void CollectionToCsv(final Collection<ApiUser> users, File csvFile) throws IOException {
         try (PrintWriter pw = new PrintWriter(csvFile)) {
             users.stream()
                     .map(ApiUser::convertToCSV)

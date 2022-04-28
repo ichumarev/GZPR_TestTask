@@ -11,16 +11,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 @SpringBootApplication
 public class TestTaskApplication implements CommandLineRunner {
 
 	private static final String EXTENSION = ".csv";
 
-	private static Logger LOG = LoggerFactory.getLogger(TestTaskApplication.class);
+	private static final Logger LOG = LoggerFactory.getLogger(TestTaskApplication.class);
 
-	private RestService restService;
-	private CsvConverter csvConverter;
+	private final RestService restService;
+	private final CsvConverter csvConverter;
 
 	public TestTaskApplication(RestService restService, CsvConverter csvConverter) {
 		this.restService = restService;
@@ -52,14 +53,14 @@ public class TestTaskApplication implements CommandLineRunner {
 			e.printStackTrace();
 		}
 
-		if (apiResponse.getResults().size() == 0) {
+		if (Objects.isNull(apiResponse) || apiResponse.getResults().size() == 0) {
 			LOG.error("No rows for writing.");
 			return;
 		}
 
 		File csvFile = new File(fileName + EXTENSION);
 		try {
-			CsvConverter.CollectionToCsv(apiResponse.getResults(), csvFile);
+			csvConverter.CollectionToCsv(apiResponse.getResults(), csvFile);
 		} catch (IOException e) {
 			LOG.error("Error with converting from JSON to CSV.");
 			e.printStackTrace();
